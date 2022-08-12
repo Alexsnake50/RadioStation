@@ -1,0 +1,193 @@
+.block{
+    display:flex;
+    justify-content: center;
+    background-color: white;
+    width:80%;
+    margin-left: 10%;
+}
+.block2{
+    justify-content: center;
+    background-color: white;
+    width:80%;
+    margin-left: 10%;
+}
+.gap{
+    gap:10%;
+}
+.gap img{
+    width:100%;
+    height:80%;
+}
+.main button{
+    color:white;
+    background-color: #413b83;
+}
+.main{
+    display:flex;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    top:0px;
+    margin-bottom: 0%;
+    padding-bottom: 0%;
+    width: 100%;
+}
+div img{
+    width: 110%;
+    height:70%;
+}
+.img{
+    width: 500px;
+    height:300px;
+}
+.sp{
+    display: flex;
+    gap:5%;
+    height: 50%;
+    flex-wrap:wrap;
+    flex: 1 1 80%; 
+    padding-left: 5%;
+}
+.sp button{
+    justify-content: start;
+}
+.sp p{
+    color:black;
+}
+.sp h2{
+    font-size: 1.5vw; 
+    color:#ec6803;
+    cursor:pointer;
+}
+.sp img{
+    cursor: pointer;
+}
+.card{
+    width:45%;
+    height: 500px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #dfe4e8;
+    overflow:hidden;
+}
+.sp2{
+    display: flex;
+    flex-direction: column;
+}
+.sp2 .player{
+    height: 100px;
+    width:100%;
+}
+.sp2 input{
+    margin-bottom: 10px;
+    width:400px;
+}
+.half{
+    height:400px;
+    width:40%;
+}
+.search{
+    padding-left: 30%;
+}
+* {
+    padding: 0;
+    margin: 0;
+    background-size: cover;
+  }
+body {
+    background-image: url('img/background.jpg');
+    background-repeat: no-repeat, repeat;
+    background-size:cover;
+    background-position: center;
+    background-attachment:fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 100vh;
+    font-family: Hack, monospace;
+}
+  
+  
+h1 {
+    font-size: 96px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 1s ease-in-out;
+    position: relative;
+    background-color: #1c174d;
+    margin-bottom: 0px;
+} 
+@media screen and (max-width: 1050px) {
+    h1 {
+        font-size: 62px;
+    }
+    h2{
+        font-size: 32px; 
+    }
+    .sp{
+        display:block;
+        gap:5%;
+        height: 50%;
+        flex-wrap:wrap;
+        flex: 1 1 80%; 
+        padding-left: 5%;
+    }
+}
+
+.head{
+    text-align: center;
+}
+nav {
+    display:inline-flex;
+    justify-content: center;
+    width:100%;
+    background-color: #413b83;
+    text-align: center;
+  }
+nav .menuItems {
+      list-style: none;
+      display: flex;
+    }
+nav li {
+        margin: 20px;
+}
+nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+    font-weight: 400;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+    text-transform: uppercase;
+}
+nav ul{
+    margin-bottom:none;
+}
+a:hover{
+    color:#ec6803;
+}
+.elfsight-app-3bffdad4-c132-44d8-b0b3-48890eae64de{
+    height: 100%;
+    width: 20%;
+    padding-right: 2%;
+}
+.about{
+    text-align: center;
+}
+iframe{
+    width: 500px;
+    height:300px;
+}
+.aboutcard{
+    width:35%;
+    height: 500px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #dfe4e8;
+    overflow:hidden;
+}

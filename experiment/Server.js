@@ -1,0 +1,119 @@
+var async   = require('async');
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const mysql = require('mysql');
+const express = require('express');
+const app = express();
+app.use(express.text())
+app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile);
+var bodyParser = require("body-parser");
+app.use(express.static('public')); 
+app.use('/img', express.static('img'));
+
+
+var privateKey  = fs.readFileSync('/etc/letsencrypt/live/live.alexsnake.live/privkey.pem', 'utf8');
+var certificate = fs.readFileSync('/etc/letsencrypt/live/live.alexsnake.live/cert.pem', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+app.enable('trust proxy')
+app.use(function(request, response, next) {
+
+        if (process.env.NODE_ENV != 'development' && !request.secure) {
+           return response.redirect("https://" + request.headers.host + request.url);
+        }
+    
+        next();
+})
+app.get('/', (req, res) => {
+    res.writeHead(200, { 'content-type': 'text/html' })
+    fs.createReadStream('NotMain.html').pipe(res);
+})
+app.get('/Show', (req, res) => {
+    res.sendFile('/home/admin/experiment/Show.html')
+})
+app.get('/Shedule', (req, res) => {
+    res.sendFile('/home/admin/experiment/Calendar.html')
+    //res.sendFile('C:/Projects/Programming/experiment/Calendar.html')
+})
+app.get('/About', (req, res) => {
+    res.sendFile('/home/admin/experiment/About.html')
+    //res.sendFile('C:/Projects/Programming/experiment/About.html')
+})
+app.get('/Contact', (req, res) => {
+    res.sendFile('/home/admin/experiment/About.html')
+    //res.sendFile('C:/Projects/Programming/experiment/About.html')
+})
+app.get('/BlogPost', (req, res) => {
+    //if(req.socket.remoteAddress !='95.31.161.146'){
+        //res.status(403).send({
+           // message: 'Access Forbidden'
+         //});
+    //}
+    //else{
+        res.sendFile('/home/admin/experiment/Admin.html')
+    //}
+})
+app.use(bodyParser.json());
+app.post('/Tests',(req, res)=>{
+        const conn = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            database: "radio",
+            password: ""
+        });
+        
+        conn.connect(err => {
+            if (err) throw err;
+        conn.query("SELECT `ID`, `Name`,`Descript`,`img`, `Author` FROM `post` limit 4 offset "+req.body, function (err, result, fields) {
+            if (err) throw err;
+            res.json(result);
+        });
+        });
+});
+app.post('/Find',(req, res)=>{
+    const conn = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        database: "radio",
+        password: ""
+    });
+    
+    conn.connect(err => {
+        if (err) throw err;
+    conn.query("SELECT * FROM `post` WHERE ID ="+req.body, function (err, result, fields) {
+        if (err) throw err;
+        res.send(result);
+    })
+    });
+});
+app.post('/Blog',(req, res)=>{
+    //if(req.socket.remoteAddress !='::1'){
+        //res.status(403).send({
+           // message: 'Access Forbidden'+req.socket.remoteAddress
+        // });
+    //}
+    //else{
+        const obj = JSON.parse(req.body);
+        const conn = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            database: "radio",
+            password: ""
+        });
+        
+        conn.connect(err => {
+            if (err) throw err;
+        conn.query("INSERT INTO `post`(`Name`, `Descript`, `Date`, `img`, `Author`, `Video`) VALUES ('"+obj.Name+"','"+obj.Descript+"','"+obj.date+"','"+obj.img+"','"+obj.Author+"','"+obj.Video+"')", function (err, result, fields) {
+            if (err) throw err;
+            res.send(result);
+        })
+        });
+    //}
+});
+const httpserver = http.createServer(app);
+const server = https.createServer(credentials, app);
+//httpserver.listen(80, ()=> console.log('Server is working'));
+httpserver.listen(80,'0.0.0.0', ()=> console.log('Server is working'));
+server.listen(443, '0.0.0.0', ()=> console.log('Server is working'));
